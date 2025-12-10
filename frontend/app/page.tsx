@@ -66,18 +66,18 @@ export default function App() {
   useEffect(() => {
 
     const pull = async () => {
-      const res = await fetch("http://localhost:8000/api/sensor/history");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/sensor/history`);
       const rawHistory = await res.json();
       const normalizedHistory: SensorData[] = rawHistory.map(normalizeHistoryEntry);
       setHistory(normalizedHistory);
     };
     const fetchData = async () => {
-      const latest = await fetch("http://localhost:8000/api/sensor");
+      const latest = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/sensor`);
       const newValue = await latest.json();
       return newValue;
     }
     const fetchAlert = async () => {
-      const alertsRes = await fetch("http://localhost:8000/api/alerts");
+      const alertsRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/alerts`);
       const alerts = await alertsRes.json();
       setAlerts(alerts);
     }
