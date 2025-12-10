@@ -11,6 +11,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const PORT = process.env.PORT || 8000;
 app.get("/api/sensor/history", (req, res) => {
     return res.json(buffer.slice(-20));
 })
@@ -79,6 +80,6 @@ app.post("/api/sensor", async (req, res) => {
 });
 
 
-app.listen(8000, () => {
-    console.log("Server started on port 8000");
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
