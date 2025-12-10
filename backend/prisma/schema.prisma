@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model SensorEvent {
+  id          String           @id @default(uuid())
+  type        SensorEventType
+  value       Float?           // Angle or distance (accident will keep null)
+  status      Boolean?         // Accident = true/false; others = null
+  threshold   Float            // The threshold that was crossed
+  triggeredAt DateTime         @default(now())
+
+  @@index([type, triggeredAt])
+}
+
+enum SensorEventType {
+  ACCIDENT
+  TILT
+  DISTANCE
+}
+
